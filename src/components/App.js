@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+
 import LoginDialog from './LoginDialog/LoginDialog'
-import MapExample from './MapExample/MapExample'
+import MapExample from '../containers/MapExample'
+import FileChoiceList from '../containers/FileChoiceList'
 
 class App extends Component {
+  
   render() {
+
     return (
       <div>
-        <LoginDialog/>
-        <MapExample/>
+        <LoginDialog />
+        <MapExample />
+        <FileChoiceList />
       </div>
     );
   }
