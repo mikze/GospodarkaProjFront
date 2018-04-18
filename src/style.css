@@ -2,3 +2,13 @@
     height: 600px;
     width: 900px;
 }
+
+.block{
+    float:left; 
+    display:inline; 
+    width: 49%;
+}
+
+.bigSize {
+    font-size: 150%;
+}
