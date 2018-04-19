@@ -31,6 +31,10 @@ export const callBackend = () => {
                     type: types.CALL_BACKEND_SUCCESS,
                     payload: response
                 })
+                dispatch({
+                    type: types.SELECTED_FILE,
+                    selectedFile: response.data 
+                })
             })
             .catch(error => {
                 console.log(error);

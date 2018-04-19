@@ -11,7 +11,7 @@ class App extends Component {
 
 
   buttonClicked = () => {
-      this.props.callBackend();
+    this.props.callBackend();
   };
 
   showProgress = () => {
@@ -41,4 +41,4 @@ const mapStateToProps = ({ BackendReducer }) => {
   return ({ loading });
 };
 
-export default connect(mapStateToProps, {callBackend})(App);
+export default connect(mapStateToProps, { callBackend })(App);
