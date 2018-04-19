@@ -1,27 +1,44 @@
 import React, { Component } from 'react';
-
-import LoginDialog from './LoginDialog/LoginDialog'
+import { FlatButton, CircularProgress } from 'material-ui';
 import MapExample from '../containers/MapExample'
 import FileChoiceList from '../containers/FileChoiceList'
 import TableOfPlaces from '../containers/TableOfPlaces'
 import '../style.css'
+import { callBackend } from '../actions/actions';
+import { connect } from 'react-redux'
 
 class App extends Component {
-  
+
+
+  buttonClicked = () => {
+      this.props.callBackend();
+  };
+
+  showProgress = () => {
+    return this.props.loading ? <CircularProgress /> : null
+  }
+
   render() {
 
     return (
       <div>
-        <LoginDialog />
         <div className="block">
-        <MapExample />
-        <FileChoiceList />
+          <MapExample />
+          <FileChoiceList />
         </div>
+        <FlatButton
+          label="Demo"
+          onClick={this.buttonClicked.bind(this)}
+        />
         <TableOfPlaces />
-        
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = ({ BackendReducer }) => {
+  const { loading } = BackendReducer;
+  return ({ loading });
+};
+
+export default connect(mapStateToProps, {callBackend})(App);

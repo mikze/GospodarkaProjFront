@@ -1,10 +1,12 @@
-import { combineReducers } from 'redux'
-import {SelectedFile} from './SelectedFile'
-import { FileResult } from './FileResult'
+import { combineReducers } from 'redux';
+import { SelectedFile } from './SelectedFile';
+import { FileResult } from './FileResult';
+import { BackendReducer } from './BackendReducer';
 
 const Reducers = combineReducers({
     SelectedFile,
-    FileResult
+    FileResult,
+    BackendReducer
 })
 
 export default Reducers
