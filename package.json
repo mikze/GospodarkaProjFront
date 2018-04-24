@@ -10,6 +10,7 @@
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-leaflet": "1.9.1",
+    "react-native-physics": "0.0.5",
     "react-redux": "^5.0.6",
     "react-scripts": "1.1.2",
     "redux": "^3.7.2",
