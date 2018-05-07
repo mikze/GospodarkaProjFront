@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import MapExample from './containers/MapExample'
+import Map from './components/Map'
 import NaviBar from './containers/NaviBar'
 import TableOfPlaces from './containers/TableOfPlaces'
 import './style.css'
@@ -11,6 +11,7 @@ class App extends Component {
 
 
   onChooseFile = (file) => {
+    console.log('file', file);
     setSelectedFile(file);
   };
 
@@ -20,7 +21,9 @@ class App extends Component {
       <div>
         <NaviBar />
         <div className="block">
-          <MapExample />
+          <Map
+            file={this.props.selectedFile}
+          />
           <FilesList
             files={this.props.files}
             onItemClicked={file => this.onChooseFile(file)}
@@ -32,8 +35,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ FileResult }) => {
-  return { files: FileResult };
+const mapStateToProps = ({ FileResult, SelectedFile }) => {
+  return { files: FileResult, selectedFile: SelectedFile };
 };
 
 const ConnectedApp = connect(mapStateToProps, { setSelectedFile })(App);

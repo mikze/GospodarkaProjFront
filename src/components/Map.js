@@ -22,7 +22,7 @@ export default class MapExample extends Component {
       });
     const position = [this.state.lat, this.state.lng]
 
-    const File = this.props.File;
+    const File = this.props.file;
     
     return (
       <div>
