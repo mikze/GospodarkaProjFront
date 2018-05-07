@@ -1,4 +1,4 @@
-import NaviBarComponent from '../components/NaviBar/NaviBarComponent'
+import NaviBarComponent from '../components/NaviBarComponent'
 import { connect } from 'react-redux'
 import {setRecJSON} from '../actions/actions.js'
 

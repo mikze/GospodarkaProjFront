@@ -1,4 +1,4 @@
-import TableOfPlacesComponent from '../components/TableOfPlaces/TableOfPlacesComponent'
+import TableOfPlacesComponent from '../components/TableOfPlacesComponent'
 import { connect } from 'react-redux'
 
 

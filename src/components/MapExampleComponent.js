@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Map, TileLayer, Marker, Popup,GeoJSON} from 'react-leaflet'
 import leaflet from 'leaflet'
-import '../../style.css'
-import markerIcon from '../../Images/markerIcon.png'
-import world from '../../CountriesMap/countries';
+import '../style.css'
+import world from '../CountriesMap/countries';
 import hash from 'object-hash';
 
 export default class MapExample extends Component {
@@ -16,7 +15,7 @@ export default class MapExample extends Component {
   render() {
 
     const marker = leaflet.icon({
-      iconUrl: markerIcon,
+      iconUrl: require('../assets/markerIcon.png'),
       iconSize: [38, 50],
       iconAnchor: [22, 94],
       popupAnchor: [-3, -76],

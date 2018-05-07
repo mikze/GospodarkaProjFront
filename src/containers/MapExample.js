@@ -1,4 +1,4 @@
-import MapExampleComponent from '../components/MapExample/MapExampleComponent'
+import MapExampleComponent from '../components/MapExampleComponent'
 import { connect } from 'react-redux'
 
 

@@ -6,7 +6,7 @@ import {
   TableHeaderColumn,
   TableRow,
 } from 'material-ui/Table';
-import '../../style.css'
+import '../style.css'
 
 
 const TableOfPlacesComponent = props => {

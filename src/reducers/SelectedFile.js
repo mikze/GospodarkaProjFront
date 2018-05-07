@@ -1,4 +1,4 @@
-import * as types from '../consts/ActionConsts'
+import * as types from '../actions/types'
 
 export const SelectedFile = (state = {filename: "No Selected file", cities: [], countries: []}, action) =>
 {
