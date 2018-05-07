@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Map from './components/Map'
 import NaviBar from './containers/NaviBar'
-import TableOfPlaces from './containers/TableOfPlaces'
+import TableOfPlaces from './components/TableOfPlaces'
 import './style.css'
 import FilesList from './components/FilesList';
 import { setSelectedFile } from './actions/actions'
@@ -29,13 +29,16 @@ class App extends Component {
             onItemClicked={file => this.onChooseFile(file)}
           />
         </div>
-        <TableOfPlaces />
+        <TableOfPlaces
+          file={this.props.selectedFile}
+        />
       </div>
     );
   }
 }
 
 const mapStateToProps = ({ FileResult, SelectedFile }) => {
+  console.log(FileResult);
   return { files: FileResult, selectedFile: SelectedFile };
 };
 
