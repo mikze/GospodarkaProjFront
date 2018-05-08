@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import MapView from '../components/MapView';
 import TableOfPlaces from '../components/TableOfPlaces';
 import FilesList from '../components/FilesList';
+import FileUpload from '../components/FileUpload';
+import { uploadFile } from '../actions/actions';
 
 class Home extends Component {
 
@@ -11,6 +13,10 @@ class Home extends Component {
         this.state = { selectedFile: emptyFile };
         console.log(this.state.selectedFile);
     }
+
+    onFileUpload = (file) => {
+        this.props.uploadFile(file);
+    };
 
     onChooseFile = (selectedFile) => {
         this.setState({ selectedFile });
@@ -21,10 +27,13 @@ class Home extends Component {
             <div>
                 <div className="block">
                     <MapView file={this.state.selectedFile} />
-                    <FilesList
-                        files={this.props.files}
-                        onItemClicked={selectedFile => this.onChooseFile(selectedFile)}
-                    />
+                    <div>
+                        <FileUpload onFileUpload={file => this.onFileUpload(file)} type="file" accept='.zip' />
+                        <FilesList
+                            files={this.props.files}
+                            onItemClicked={selectedFile => this.onChooseFile(selectedFile)}
+                        />
+                    </div>
                 </div>
                 <TableOfPlaces
                     file={this.state.selectedFile}
@@ -45,5 +54,5 @@ const mapStateToProps = ({ FileResult }) => {
     return { files };
 };
 
-const ConnectedHome = connect(mapStateToProps, {})(Home);
+const ConnectedHome = connect(mapStateToProps, { uploadFile })(Home);
 export { ConnectedHome as Home };

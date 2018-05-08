@@ -4,11 +4,12 @@ import { App } from './App';
 import registerServiceWorker from './registerServiceWorker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import ReduxThunk from 'redux-thunk';
 import reducer from './reducers'
 
 
-const store = createStore(reducer)
+const store = createStore(reducer, {}, applyMiddleware(ReduxThunk))
 
 window.store = store;
 

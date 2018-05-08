@@ -12,7 +12,6 @@ import {
   CreatePublicDictionary
 } from './routes'
 
-
 class App extends Component {
 
   render() {
