@@ -1,2 +1,1 @@
-export const SELECTED_FILE = 'SELECTED_FILE';
 export const SET_RECEIVED_JSON = 'SET_RECEIVED_JSON';

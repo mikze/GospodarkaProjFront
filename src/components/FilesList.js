@@ -14,7 +14,7 @@ const FilesList = ({ files, onItemClicked }) => {
     <div>
       <Table onCellClick={index => { onItemClicked(files[index]) }}>
         <TableHeader>
-          <TableRow>
+          <TableRow selectable={false}>
             <TableHeaderColumn>File Name</TableHeaderColumn>
           </TableRow>
         </TableHeader>

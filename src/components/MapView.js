@@ -5,7 +5,7 @@ import '../style.css'
 import world from '../assets/countries';
 import hash from 'object-hash';
 
-export default class MapExample extends Component {
+export default class MapView extends Component {
   state = {
     lat: 51.505,
     lng: -0.09,

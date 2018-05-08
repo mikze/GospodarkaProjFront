@@ -1,46 +1,44 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import Map from './components/Map'
-import NaviBar from './containers/NaviBar'
-import TableOfPlaces from './components/TableOfPlaces'
-import './style.css'
-import FilesList from './components/FilesList';
-import { setSelectedFile } from './actions/actions'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
+import {
+  Home,
+  BrowsePrivateDictionaries,
+  BrowsePublicDictionaries,
+  CreatePrivateDictionary,
+  CreatePublicDictionary
+} from './routes'
+
 
 class App extends Component {
-
-
-  onChooseFile = (file) => {
-    console.log('file', file);
-    setSelectedFile(file);
-  };
 
   render() {
 
     return (
-      <div>
-        <NaviBar />
-        <div className="block">
-          <Map
-            file={this.props.selectedFile}
-          />
-          <FilesList
-            files={this.props.files}
-            onItemClicked={file => this.onChooseFile(file)}
-          />
+
+      <Router>
+        <div className="container">
+          <ul className="header">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/browse_private">Private Dictionaries</Link></li>
+            <li><Link to="/browse_public">Public Dictionaries</Link></li>
+            <li><Link to="/create_private">Create Private</Link></li>
+            <li><Link to="/create_public">Create Public</Link></li>
+          </ul>
+          <div className="container" style={{ padding: 20 }}>
+            <Route exact path="/" component={Home} />
+            <Route path="/browse_private" component={BrowsePrivateDictionaries} />
+            <Route path="/browse_public" component={BrowsePublicDictionaries} />
+            <Route path="/create_private" component={CreatePrivateDictionary} />
+            <Route path="/create_public" component={CreatePublicDictionary} />
+          </div>
         </div>
-        <TableOfPlaces
-          file={this.props.selectedFile}
-        />
-      </div>
+      </Router>
     );
   }
 }
 
-const mapStateToProps = ({ FileResult, SelectedFile }) => {
-  const files = FileResult.receivedJSON;
-  return { files, selectedFile: SelectedFile };
-};
-
-const ConnectedApp = connect(mapStateToProps, { setSelectedFile })(App);
-export { ConnectedApp as App };
+export { App };
