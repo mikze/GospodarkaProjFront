@@ -1,14 +1,15 @@
-import * as types from '../actions/types'
+import { SELECTED_FILE } from '../actions/types'
 
-export const SelectedFile = (state = {filename: "No Selected file", cities: [], countries: []}, action) =>
-{
-    switch(action.type)
-    {
-        case types.SELECTED_FILE:
-            console.log(action.selectedFile)
-            return Object.assign({}, action.selectedFile);
-
+const INITIAL_STATE = {
+    filename: "No selected file",
+    cities: [],
+    countries: []
+};
+export const SelectedFile = (state = INITIAL_STATE, action) => {
+    switch (action.type) {
+        case SELECTED_FILE:
+            return action.payload
         default:
-        return state;
+            return state;
     }
 }

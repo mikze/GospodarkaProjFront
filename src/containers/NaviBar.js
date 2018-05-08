@@ -1,10 +1,10 @@
 import NaviBarComponent from '../components/NaviBarComponent'
 import { connect } from 'react-redux'
-import {setRecJSON} from '../actions/actions.js'
+import {setReceivedJSON} from '../actions/actions.js'
 
 const UploadFile = dispatch => ({
     dispatch: JSON => {
-      dispatch(setRecJSON(JSON))
+      dispatch(setReceivedJSON(JSON))
     }
   })
 

@@ -38,8 +38,8 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ FileResult, SelectedFile }) => {
-  console.log(FileResult);
-  return { files: FileResult, selectedFile: SelectedFile };
+  const files = FileResult.receivedJSON;
+  return { files, selectedFile: SelectedFile };
 };
 
 const ConnectedApp = connect(mapStateToProps, { setSelectedFile })(App);

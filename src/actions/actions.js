@@ -1,16 +1,16 @@
 import {
     SELECTED_FILE,
-    SET_REC_JSON
+    SET_RECEIVED_JSON
 } from './types'
 
 export const setSelectedFile = (selectedFile) =>
     ({
         type: SELECTED_FILE,
-        selectedFile
+        payload: selectedFile
     })
 
-export const setRecJSON = (RecJSON) =>
+export const setReceivedJSON = (receivedJSON) =>
     ({
-        type: SET_REC_JSON,
-        RecJSON
+        type: SET_RECEIVED_JSON,
+        payload: receivedJSON
     })
