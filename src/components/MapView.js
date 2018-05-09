@@ -6,11 +6,18 @@ import world from '../assets/countries';
 import hash from 'object-hash';
 
 export default class MapView extends Component {
-  state = {
+  
+  constructor(props)
+  {
+    super(props)
+
+    this.state = {
     lat: 51.505,
     lng: -0.09,
     zoom: 2,
   }
+  }
+  
  
   render() {
 
@@ -25,7 +32,7 @@ export default class MapView extends Component {
     const File = this.props.file;
 
    
-    const MAX = File.countries.map( country => country.count).sort((x,y) => x>y )[File.countries.length -1];
+    let MAX = File.countries.map( country => country.count).sort((x,y) => x>y )[File.countries.length -1];
   
     return (
       <div>
