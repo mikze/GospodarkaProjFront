@@ -17,13 +17,16 @@ export default class MapView extends Component {
     const marker = leaflet.icon({
       iconUrl: require('../assets/images/markerIcon.png'),
       iconSize: [38, 50],
-      iconAnchor: [22, 94],
+      iconAnchor: [22, 36],
       popupAnchor: [-3, -76],
       });
     const position = [this.state.lat, this.state.lng]
 
     const File = this.props.file;
-    
+
+   
+    const MAX = File.countries.map( country => country.count).sort((x,y) => x>y )[File.countries.length -1];
+  
     return (
       <div>
       <Map center={position} zoom={this.state.zoom}>
@@ -36,12 +39,12 @@ export default class MapView extends Component {
           File.countries.map(
             (country, i) => 
             <GeoJSON key={hash(world(country.name))} data={world(country.name)} style={{
-                fillColor: '#'+(Math.floor(Math.random() * 16777215) + 1).toString(16),
+                fillColor: 'red',
                 weight: 1,
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
-                fillOpacity: 0.7
+                fillOpacity: (0.5*country.count)/MAX
             }} />)
           
         }

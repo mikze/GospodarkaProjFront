@@ -13,11 +13,6 @@ const FilesList = ({ files, onItemClicked }) => {
   return (
     <div>
       <Table onCellClick={index => { onItemClicked(files[index]) }}>
-        <TableHeader>
-          <TableRow selectable={false}>
-            <TableHeaderColumn>File Name</TableHeaderColumn>
-          </TableRow>
-        </TableHeader>
         <TableBody>
           {files.map(file =>
             <TableRow>
