@@ -1,25 +1,40 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import axios from 'axios';
 import MapView from '../components/MapView';
 import TableOfPlaces from '../components/TableOfPlaces';
 import FilesList from '../components/FilesList';
 import FileUpload from '../components/FileUpload';
-import { uploadFile } from '../actions/actions';
+import { DemoFile } from '../assets/demoFile';
 
 class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { selectedFile: emptyFile };
-        console.log(this.state.selectedFile);
+        this.state = { selectedFile: emptyFile, files: DemoFile };
     }
 
-    onFileUpload = (file) => {
-        this.props.uploadFile(file);
+    updateList = (data) => {
+        this.setState({ files: data });
     };
 
     onChooseFile = (selectedFile) => {
         this.setState({ selectedFile });
+    };
+
+    uploadFile = (file) => {
+        console.log(file);
+        const formData = new FormData();
+        formData.append('file', file)
+        axios({
+            method: 'POST',
+            url: `http://kacperkluka.me/global/file`,
+            data: formData
+        }).then(response => {
+            console.log(response);
+            this.updateList(response.data);
+        }).catch(error => {
+            console.log(error);
+        });
     };
 
     render() {
@@ -28,9 +43,9 @@ class Home extends Component {
                 <div className="block">
                     <MapView file={this.state.selectedFile} />
                     <div>
-                        <FileUpload onFileUpload={file => this.onFileUpload(file)} type="file" accept='.zip' />
+                        <FileUpload onFileUpload={file => this.uploadFile(file)} type="file" accept='.zip' />
                         <FilesList
-                            files={this.props.files}
+                            files={this.state.files}
                             onItemClicked={selectedFile => this.onChooseFile(selectedFile)}
                         />
                     </div>
@@ -49,10 +64,4 @@ const emptyFile = {
     countries: []
 };
 
-const mapStateToProps = ({ FileResult }) => {
-    const files = FileResult.receivedJSON;
-    return { files };
-};
-
-const ConnectedHome = connect(mapStateToProps, { uploadFile })(Home);
-export { ConnectedHome as Home };
+export { Home };
