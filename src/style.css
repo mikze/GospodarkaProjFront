@@ -1,12 +1,51 @@
-.leaflet-container {
-    height: 600px;
-    width: 900px;
-}
+body {
+    background-color: #FFCC0033;
+    margin: 0;
+  }
+  h1, h2, p, ul, li {
+    font-family: sans-serif;
+  }
+  ul.header li {
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+  }
+  ul.header {
+    background-color: #111;
+    padding: 0;
+  }
+  ul.header li a {
+    color: #FFF;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 20px;
+    display: inline-block;
+  }
+  .content {
+    background-color: #FFF;
+    padding: 20px;
+  }
+  .content h2 {
+    padding: 0;
+    margin: 0;
+  }
+  .content li {
+    margin-bottom: 10px;
+  }
 
-.block{
-    float:left; 
-    display:inline; 
-    width: 49%;
+  .leaflet-container {
+    height: 600px;
+    width: 800px;
+    margin-right: 20px
+}
+li.right{
+    float: right;
+    padding-top: 20px;
+}
+.block {
+    display:flex; 
+    flex-direction: row;
+    justify-content: space-evenly
 }
 
 .bigSize {
