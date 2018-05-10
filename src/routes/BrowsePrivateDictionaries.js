@@ -18,6 +18,10 @@ class BrowsePrivateDictionaries extends Component {
         };
     }
 
+    componentDidMount() {
+        this.props.fetchPrivateDictionaries();
+    }
+
     changePage = (page) => {
         this.setState({ currentPage: page })
     };
@@ -27,7 +31,7 @@ class BrowsePrivateDictionaries extends Component {
 
         return (
             <div className='container'>
-                <h1 style={{ textAlign: 'center' }}>Dictionary: {data[currentPage].name}</h1>
+                <h1 style={{ textAlign: 'center' }}>Private Dictionary: {data[currentPage].name}</h1>
 
                 <h3>Cities:</h3>
                 <TreeTable
