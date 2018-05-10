@@ -1,8 +1,10 @@
-import { combineReducers } from 'redux'
-import { FileResult } from './FileResult'
+import { combineReducers } from 'redux';
+import { FileResult } from './FileResult';
+import { Dictionaries } from './Dictionaries';
 
 const Reducers = combineReducers({
-    FileResult
+    FileResult,
+    Dictionaries
 })
 
 export default Reducers
