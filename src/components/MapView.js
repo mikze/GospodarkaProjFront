@@ -59,7 +59,7 @@ export default class MapView extends Component {
         {File.cities.map( x => <Marker position={[x.latitude, x.longitude]} icon={marker} >
           <Popup>
             <span>
-              {x.name}
+              {x.name} Liczba wystąpień: {x.count}
             </span>
           </Popup>
         </Marker>)}
