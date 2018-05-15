@@ -16,6 +16,12 @@ export const uploadFile = (file) => {
     return (dispatch) => {
         const formData = new FormData();
         formData.append('file', file)
+
+        // dispatch({
+        //     type: SET_RECEIVED_JSON,
+        //     payload: 'loading'
+        // });
+
         axios({
             method: 'POST',
             url: `http://kacperkluka.me/global/file`,

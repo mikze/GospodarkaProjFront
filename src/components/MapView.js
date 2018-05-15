@@ -32,7 +32,7 @@ export default class MapView extends Component {
     const File = this.props.file;
 
    
-    let MAX = File.countries.map( country => country.count).sort((x,y) => x>y )[File.countries.length -1];
+    let MAX = File.countries.map( country => country.totalCount).sort((x,y) => x>y )[File.countries.length -1];
   
     return (
       <div>
@@ -51,7 +51,7 @@ export default class MapView extends Component {
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
-                fillOpacity: (0.5*country.count)/MAX
+                fillOpacity: (0.5*country.totalCount)/MAX
             }} />)
           
         }
@@ -59,7 +59,7 @@ export default class MapView extends Component {
         {File.cities.map( x => <Marker position={[x.latitude, x.longitude]} icon={marker} >
           <Popup>
             <span>
-              {x.name} Liczba wystąpień: {x.count}
+              {x.name} Liczba wystąpień: {x.totalCount}
             </span>
           </Popup>
         </Marker>)}
