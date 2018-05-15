@@ -17,10 +17,10 @@ export const uploadFile = (file) => {
         const formData = new FormData();
         formData.append('file', file)
 
-        // dispatch({
-        //     type: SET_RECEIVED_JSON,
-        //     payload: 'loading'
-        // });
+        dispatch({
+            type: SET_RECEIVED_JSON,
+            payload: 'loading'
+        });
 
         axios({
             method: 'POST',

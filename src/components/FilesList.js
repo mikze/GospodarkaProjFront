@@ -6,6 +6,7 @@ import {
   TableHeaderColumn,
   TableRow,
 } from 'material-ui/Table';
+import CircularProgress from 'material-ui/CircularProgress';
 
 
 const FilesList = ({ files, onItemClicked }) => {
@@ -14,7 +15,7 @@ const FilesList = ({ files, onItemClicked }) => {
     <div>
       <Table onCellClick={index => { onItemClicked(files[index]) }}>
         <TableBody>
-          {files.map(file =>
+          {files === 'loading' ? <CircularProgress size={80} thickness={5} /> : files.map(file =>
             <TableRow>
               <TableHeaderColumn>{file.filename}</TableHeaderColumn>
             </TableRow>
