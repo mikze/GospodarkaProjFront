@@ -10,7 +10,7 @@ const TableOfPlaces = ({ file }) => {
     <div className='bigSize'>
       File Name: {filename} <br />
       Cites: {cities.map(city => `${city.name}, `)} <br />
-      Countries: {countries.map(country => `${country.name} x${country.count}, `)} <br />
+      Countries: {countries.map(country => `${country.name} x${country.totalCount}, `)} <br />
     </div>
   )
 };

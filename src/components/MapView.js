@@ -18,21 +18,14 @@ export default class MapView extends Component {
   }
   }
   
- 
   render() {
-
-    const marker = leaflet.icon({
-      iconUrl: require('../assets/images/markerIcon.png'),
-      iconSize: [38, 50],
-      iconAnchor: [22, 36],
-      popupAnchor: [-3, -76],
-      });
     const position = [this.state.lat, this.state.lng]
 
     const File = this.props.file;
 
-   
-    let MAX = File.countries.map( country => country.totalCount).sort((x,y) => x>y )[File.countries.length -1];
+    let maxCountries = File.countries.map( country => country.totalCount).sort((x,y) => x>y )[File.countries.length -1];
+    let maxCities = File.cities.map( city => city.totalCount).sort((x,y) => x>y )[File.cities.length -1]; 
+    let minCities
   
     return (
       <div>
@@ -51,18 +44,28 @@ export default class MapView extends Component {
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
-                fillOpacity: (0.5*country.totalCount)/MAX
+                fillOpacity: (0.5*country.totalCount)/maxCountries
             }} />)
           
         }
 
-        {File.cities.map( x => <Marker position={[x.latitude, x.longitude]} icon={marker} >
+        {File.cities.map( city => { 
+          return <Marker position={[city.latitude, city.longitude]} icon={
+            
+            leaflet.icon({
+              iconUrl: require('../assets/images/markerIcon.png'),
+              iconSize: [(38*city.totalCount)/maxCities, (50*city.totalCount)/maxCities],
+              iconAnchor: [(22*city.totalCount)/maxCities, (36*city.totalCount)/maxCities],
+              popupAnchor: [-3, -76],
+              })
+
+          } >
           <Popup>
             <span>
-              {x.name} Liczba wystąpień: {x.totalCount}
+              {city.name} Liczba wystąpień: {city.totalCount}
             </span>
           </Popup>
-        </Marker>)}
+        </Marker>})}
       </Map>
       </div>
     )
