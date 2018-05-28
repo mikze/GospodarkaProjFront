@@ -12,14 +12,25 @@ const INITIAL_STATE = {
 export const Dictionaries = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SET_PUBLIC_DICTIONARIES:
-            return {
-                ...state,
-                publicDictionaries: action.payload
+            if (typeof action.payload[0] !== 'undefined' && action.payload[0] !== null) {
+                return {
+                    ...state,
+                    publicDictionaries: action.payload
+                }
             }
-        case SET_PRIVATE_DICTIONARIES:
             return {
-                ...state,
-                privateDictionaries: action.payload
+                ...state
+            }
+
+        case SET_PRIVATE_DICTIONARIES:
+            if (typeof action.payload[0] !== 'undefined' && action.payload[0] !== null) {
+                return {
+                    ...state,
+                    privateDictionaries: action.payload
+                }
+            }
+            return {
+                ...state
             }
         default:
             return state;
