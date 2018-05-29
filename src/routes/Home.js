@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MapView from '../components/MapView';
 import TableOfPlaces from '../components/TableOfPlaces';
+import ListOfTasks from '../components/ListOfTasks';
 import FilesList from '../components/FilesList';
 import FileUpload from '../components/FileUpload';
-import { uploadFile } from '../actions/actions';
+import { setTaskId, removeTask } from '../actions/actions';
 
 class Home extends Component {
 
@@ -15,7 +16,12 @@ class Home extends Component {
     }
 
     onFileUpload = (file) => {
-        this.props.uploadFile(file);
+        this.props.setTaskId(file,'global');
+    };
+
+    removeTask = (taskId) => {
+        this.props.removeTask(taskId);
+        console.log(`removing ${taskId}`);
     };
 
     onChooseFile = (selectedFile) => {
@@ -23,17 +29,19 @@ class Home extends Component {
     };
 
     render() {
+        
         return (
             <div>
                 <div className="block">
                     <MapView file={this.state.selectedFile} />
                     <div>
-                        <FileUpload onFileUpload={file => this.onFileUpload(file)} type="file" accept='.zip' />
+                        <FileUpload onFileUpload={file => this.onFileUpload(file)} />
                         <FilesList
                             files={this.props.files}
                             onItemClicked={selectedFile => this.onChooseFile(selectedFile)}
                         />
                     </div>
+                <ListOfTasks tasks = {this.props.TaskId} removeTask={taskId => this.removeTask(taskId)}/>
                 </div>
                 <TableOfPlaces
                     file={this.state.selectedFile}
@@ -49,10 +57,10 @@ const emptyFile = {
     countries: []
 };
 
-const mapStateToProps = ({ FileResult }) => {
+const mapStateAndTaskIdToProps = ({ FileResult, TaskId }) => {
     const files = FileResult.receivedJSON;
-    return { files };
+    return { files, TaskId };
 };
 
-const ConnectedHome = connect(mapStateToProps, { uploadFile })(Home);
+const ConnectedHome = connect(mapStateAndTaskIdToProps, { setTaskId,removeTask })(Home);
 export { ConnectedHome as Home };

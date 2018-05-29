@@ -21,9 +21,15 @@ class FileUpload extends Component {
 
     render() {
         return (
-            <form onSubmit={this.onFormSubmit}>
-                <input  placeholder="" type="file" accept='.zip' onChange={this.onChange} />
-                <button type="submit">Upload</button>
+            // <form onSubmit={this.onFormSubmit}>
+            //     <input  placeholder="" enctype="multipart/form-data" type="file" accept='.zip' onChange={this.onChange} />
+            //     <button type="submit">Upload</button>
+            // </form>
+
+            <form method="POST" enctype="multipart/form-data" onSubmit={this.onFormSubmit}>
+               
+                <input placeholder="" type="file" name="file" accept='.zip' onChange={this.onChange}/>
+                <input type="submit" />
             </form>
         )
     }

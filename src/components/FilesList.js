@@ -17,9 +17,10 @@ const FilesList = ({ files, onItemClicked }) => {
         <TableBody>
           {files === 'loading' ? <CircularProgress size={80} thickness={5} /> : files.map(file =>
             <TableRow>
-              <TableHeaderColumn>{file.filename}</TableHeaderColumn>
+              <TableHeaderColumn>{file.filename}xD</TableHeaderColumn>
             </TableRow>
           )}
+          
         </TableBody>
       </Table>
     </div>

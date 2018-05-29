@@ -51,3 +51,10 @@ li.right{
 .bigSize {
     font-size: 150%;
 }
+
+.taskList{
+  width: 450px;
+  display:block;
+  float: right;
+  display: absolute;
+}
