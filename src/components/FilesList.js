@@ -7,10 +7,9 @@ import {
   TableRow,
 } from 'material-ui/Table';
 import CircularProgress from 'material-ui/CircularProgress';
-import Range from './Range'
+import RangeComponent from './RangeComponent'
 
-
-const FilesList = ({ files, onItemClicked }) => {
+const FilesList = ({ files, onItemClicked, setRange }) => {
 
   return (
     <div>
@@ -18,7 +17,7 @@ const FilesList = ({ files, onItemClicked }) => {
         <TableBody>
           {(files !== 'nothing' && files !== 'loading') ? files.map(file =>
             <TableRow>
-              <TableHeaderColumn> <div className='block'> {file.filename} <Range/> </div> </TableHeaderColumn>
+              <TableHeaderColumn> <div className='block'> {file.filename} <RangeComponent textName = {file.filename} setRange = {(r1,r2, textName) => setRange(r1,r2,textName)} /> </div> </TableHeaderColumn>
             </TableRow>
           ) : files !== 'nothing' ? <CircularProgress size={80} thickness={5} /> : null}
           

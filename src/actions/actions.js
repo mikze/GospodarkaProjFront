@@ -4,7 +4,8 @@ import {
     SET_PUBLIC_DICTIONARIES,
     SET_PRIVATE_DICTIONARIES,
     SET_RECEIVED_TASK,
-    RM_TASK
+    RM_TASK,
+    SET_RANGE
 } from './types'
 
 export const setReceivedJSON = (receivedJSON) =>
@@ -25,6 +26,21 @@ export const removeTask = (taskId) =>
         type: RM_TASK,
         payload: taskId
 })
+
+export const setRange = (range1, range2, textName) => {
+
+    return (dispatch) => {
+ 
+            dispatch(
+                {
+                    type: SET_RANGE,
+                    range1,
+                    range2,
+                    textName
+            }
+            )
+        }
+    }
 
 export const setTaskId = (file, kind) => {
 
@@ -66,6 +82,12 @@ export const getResolvedTask = (taskId) => {
             url: `http://kacperkluka.me/task/results?id=${taskId}`,
         }).then(response => {
             console.log(response);
+
+            response.data.map(x => x.range = {
+                range1: 1,
+                range2: Number.MAX_SAFE_INTEGER,
+                })
+
             dispatch({
                 type: SET_RECEIVED_JSON,
                 payload: response.data

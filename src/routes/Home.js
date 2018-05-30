@@ -5,7 +5,7 @@ import TableOfPlaces from '../components/TableOfPlaces';
 import ListOfTasks from '../components/ListOfTasks';
 import FilesList from '../components/FilesList';
 import FileUpload from '../components/FileUpload';
-import { setTaskId, removeTask, getResolvedTask } from '../actions/actions';
+import { setTaskId, removeTask, getResolvedTask, setRange } from '../actions/actions';
 
 class Home extends Component {
 
@@ -37,6 +37,11 @@ class Home extends Component {
         this.props.getResolvedTask(taskId);
     };
 
+    setRange = (r1,r2,textName) =>
+    {
+        this.props.setRange(r1,r2,textName);
+    };
+
     render() {
 
         return (
@@ -47,6 +52,7 @@ class Home extends Component {
                         <FileUpload onFileUpload={file => this.onFileUpload(file)} />
                         <FilesList
                             files={this.props.files}
+                            setRange = {(r1,r2,textName)=>this.setRange(r1,r2,textName)}
                             onItemClicked={selectedFile => this.onChooseFile(selectedFile)}
                         />
                     </div>
@@ -72,6 +78,6 @@ const mapStateAndTaskIdToProps = ({ FileResult, TaskId }) => {
     return { files, TaskId };
 };
 
-const ConnectedHome = connect(mapStateAndTaskIdToProps, { setTaskId,removeTask,getResolvedTask })(Home);
+const ConnectedHome = connect(mapStateAndTaskIdToProps, { setTaskId,removeTask,getResolvedTask, setRange })(Home);
 
 export { ConnectedHome as Home };

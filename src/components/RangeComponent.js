@@ -3,7 +3,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 
-export default class Range extends Component {
+export default class RangeComponent extends Component {
 
     constructor(props)
     {
@@ -63,8 +63,12 @@ export default class Range extends Component {
 
     submitRange = () =>
     {
+       
        if(this.validate())
-       console.log(`Range1 = ${parseInt(this.state.range1)} Range2 = ${parseInt(this.state.range2)}`);
+       {
+           console.log('SubmitingRANGE');
+           this.props.setRange(this.state.range1, this.state.range2 , this.props.textName);
+        }
        else
        console.log('Validation did not pass');
     }
