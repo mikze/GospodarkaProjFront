@@ -19,6 +19,7 @@ class BrowsePublicDictionaries extends Component {
     }
 
     componentDidMount() {
+        localStorage.setItem("user_details", "test@gmail.com|Jan|Nowak")
         this.props.fetchPublicDictionaries();
     }
 

@@ -15,8 +15,12 @@ class Home extends Component {
         console.log(this.state.selectedFile);
     }
 
+    componentDidMount() {
+        localStorage.setItem("user_details", "test@gmail.com|Jan|Nowak")
+    }
+
     onFileUpload = (file) => {
-        this.props.setTaskId(file,'global');
+        this.props.setTaskId(file, 'global');
     };
 
     removeTask = (taskId) => {
@@ -34,7 +38,7 @@ class Home extends Component {
     };
 
     render() {
-        
+
         return (
             <div>
                 <div className="block">
@@ -47,6 +51,7 @@ class Home extends Component {
                         />
                     </div>
                 <ListOfTasks tasks = {this.props.TaskId} removeTask={taskId => this.removeTask(taskId)} getResolvedTask = {taskId => this.getResolvedTask(taskId)} />
+
                 </div>
                 <TableOfPlaces
                     file={this.state.selectedFile}
@@ -68,4 +73,5 @@ const mapStateAndTaskIdToProps = ({ FileResult, TaskId }) => {
 };
 
 const ConnectedHome = connect(mapStateAndTaskIdToProps, { setTaskId,removeTask,getResolvedTask })(Home);
+
 export { ConnectedHome as Home };
