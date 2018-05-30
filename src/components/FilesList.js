@@ -17,7 +17,15 @@ const FilesList = ({ files, onItemClicked, setRange }) => {
         <TableBody>
           {(files !== 'nothing' && files !== 'loading') ? files.map(file =>
             <TableRow>
-              <TableHeaderColumn> <div className='block'> {file.filename} <RangeComponent textName = {file.filename} setRange = {(r1,r2, textName) => setRange(r1,r2,textName)} /> </div> </TableHeaderColumn>
+
+              <TableHeaderColumn style={{paddingLeft: 4}}>
+                <div>
+                  <p style={{fontWeight: "bold", marginBottom: 0, fontSize: 14}}>
+                    {file.filename}
+                  </p>
+                  <Range/>
+                </div>
+              </TableHeaderColumn>
             </TableRow>
           ) : files !== 'nothing' ? <CircularProgress size={80} thickness={5} /> : null}
           
