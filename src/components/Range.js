@@ -86,26 +86,27 @@ export default class Range extends Component {
 
   return (
     <div>
-      <TextField
-      hintText="RANGE1"
-      onChange = { (x,y) => this.setRange1(x,y)}
-    /> 
-    <TextField
-    hintText="RANGE2"
-    onChange = {(x,y) => this.setRange2(x,y)}
-    />
-    <FlatButton label="Load Range" onClick = { this.submitRange } disabled={this.state.error}/>
+        <TextField
+            style={{fontSize: 12,width: 50,marginRight: 5}}
+            hintText="RANGE1"
+            onChange = { (x,y) => this.setRange1(x,y)}
+        />
+        <TextField
+            style={{fontSize: 12,width: 50}}
+            hintText="RANGE2"
+            onChange = {(x,y) => this.setRange2(x,y)}
+        />
+        <FlatButton label="Load" onClick = { this.submitRange } disabled={this.state.error}/>
 
-    <Dialog
-          title="Dialog With Actions"
-          actions={actions}
-          modal={false}
-          onRequestClose={this.handleClose}
-          open={this.state.error}
-        >
-          {this.state.error}
+        <Dialog
+            title="Dialog With Actions"
+            actions={actions}
+            modal={false}
+            onRequestClose={this.handleClose}
+            open={this.state.error}
+            >
+            {this.state.error}
         </Dialog>
-        
     </div>
      )
     }
