@@ -14,6 +14,10 @@ import {
 
 class App extends Component {
 
+  componentDidMount() {
+    localStorage.setItem("user_details", "test@gmail.com|Jan|Nowak")
+  }
+
   render() {
 
     return (
