@@ -23,7 +23,7 @@ const FilesList = ({ files, onItemClicked, setRange }) => {
                   <p style={{fontWeight: "bold", marginBottom: 0, fontSize: 14}}>
                     {file.filename}
                   </p>
-                  <Range/>
+                  <RangeComponent textName = {file.filename} setRange = {(r1,r2,textName) => setRange(r1,r2,textName)}/>
                 </div>
               </TableHeaderColumn>
             </TableRow>
