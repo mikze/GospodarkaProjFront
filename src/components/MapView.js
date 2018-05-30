@@ -54,8 +54,8 @@ export default class MapView extends Component {
             
             leaflet.icon({
               iconUrl: require('../assets/images/markerIcon.png'),
-              iconSize: [(38*city.totalCount)/maxCities, (50*city.totalCount)/maxCities],
-              iconAnchor: [(22*city.totalCount)/maxCities, (36*city.totalCount)/maxCities],
+              iconSize: [38, 50],
+              iconAnchor: [22, 36],
               popupAnchor: [-3, -76],
               })
 
