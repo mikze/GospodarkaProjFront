@@ -62,8 +62,8 @@ export const getResolvedTask = (taskId) => {
 
         axios({
             method: 'GET',
-            //url: `http://kacperkluka.me/task/results?id=${taskId}`,
-            url: `http://kacperkluka.me/task/results?id=3fd18e20-c605-44d4-8329-6e41637d6ca4`
+            url: `http://kacperkluka.me/task/results?id=${taskId}`,
+            //url: `http://kacperkluka.me/task/results?id=3fd18e20-c605-44d4-8329-6e41637d6ca4`
         }).then(response => {
             console.log(response);
             dispatch({

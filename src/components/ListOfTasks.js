@@ -11,7 +11,7 @@ import Chip from 'material-ui/Chip';
 import CircularProgress from 'material-ui/CircularProgress';
 
 
-const ListOfTasks = ({ tasks,classes,removeTask }) => {
+const ListOfTasks = ({ tasks,classes,removeTask,getResolvedTask }) => {
 
   const styles = {
     chip: {
@@ -32,6 +32,7 @@ const ListOfTasks = ({ tasks,classes,removeTask }) => {
                   key={x.taskId}
                   onRequestDelete={() => removeTask(x.taskId)}
                   style={styles.chip}
+                  onClick = {() => getResolvedTask(x.taskId)}
                 >
         {x.fileName}
       </Chip>

@@ -5,7 +5,7 @@ import TableOfPlaces from '../components/TableOfPlaces';
 import ListOfTasks from '../components/ListOfTasks';
 import FilesList from '../components/FilesList';
 import FileUpload from '../components/FileUpload';
-import { setTaskId, removeTask } from '../actions/actions';
+import { setTaskId, removeTask, getResolvedTask } from '../actions/actions';
 
 class Home extends Component {
 
@@ -28,6 +28,11 @@ class Home extends Component {
         this.setState({ selectedFile });
     };
 
+    getResolvedTask = (taskId) =>
+    {
+        this.props.getResolvedTask(taskId);
+    };
+
     render() {
         
         return (
@@ -41,7 +46,7 @@ class Home extends Component {
                             onItemClicked={selectedFile => this.onChooseFile(selectedFile)}
                         />
                     </div>
-                <ListOfTasks tasks = {this.props.TaskId} removeTask={taskId => this.removeTask(taskId)}/>
+                <ListOfTasks tasks = {this.props.TaskId} removeTask={taskId => this.removeTask(taskId)} getResolvedTask = {taskId => this.getResolvedTask(taskId)} />
                 </div>
                 <TableOfPlaces
                     file={this.state.selectedFile}
@@ -62,5 +67,5 @@ const mapStateAndTaskIdToProps = ({ FileResult, TaskId }) => {
     return { files, TaskId };
 };
 
-const ConnectedHome = connect(mapStateAndTaskIdToProps, { setTaskId,removeTask })(Home);
+const ConnectedHome = connect(mapStateAndTaskIdToProps, { setTaskId,removeTask,getResolvedTask })(Home);
 export { ConnectedHome as Home };

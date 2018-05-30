@@ -15,11 +15,11 @@ const FilesList = ({ files, onItemClicked }) => {
     <div>
       <Table onCellClick={index => { onItemClicked(files[index]) }}>
         <TableBody>
-          {files === 'loading' ? <CircularProgress size={80} thickness={5} /> : files.map(file =>
+          {(files !== 'nothing' && files !== 'loading') ? files.map(file =>
             <TableRow>
               <TableHeaderColumn>{file.filename}xD</TableHeaderColumn>
             </TableRow>
-          )}
+          ) : files !== 'nothing' ? <CircularProgress size={80} thickness={5} /> : null}
           
         </TableBody>
       </Table>
