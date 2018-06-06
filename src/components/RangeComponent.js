@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import Slider from 'material-ui/Slider'
 
 export default class RangeComponent extends Component {
 
@@ -88,16 +89,22 @@ export default class RangeComponent extends Component {
         />
     ]
 
+    const sentenceCount = this.props.sentencesCount;
+
   return (
     <div>
-        <TextField
-            style={{fontSize: 12,width: 50,marginRight: 5}}
-            hintText="RANGE1"
+        <Slider
+        min={1}
+        max={sentenceCount}
+        step={1}
+        value={this.state.range1}
             onChange = { (x,y) => this.setRange1(x,y)}
         />
-        <TextField
-            style={{fontSize: 12,width: 50}}
-            hintText="RANGE2"
+        <Slider
+        min={1}
+        max={sentenceCount}
+        step={1}
+        value={this.state.range2}
             onChange = {(x,y) => this.setRange2(x,y)}
         />
         <FlatButton label="Load" onClick = { this.submitRange } disabled={this.state.error}/>

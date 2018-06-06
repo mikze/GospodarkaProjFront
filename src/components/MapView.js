@@ -15,15 +15,57 @@ export default class MapView extends Component {
     lat: 51.505,
     lng: -0.09,
     zoom: 2,
+    range1: 1,
+    range2: 3
   }
   }
   
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps)
+    this.setState({range1: nextProps.range1});
+    this.setState({range2: nextProps.range2});
+}
+
   render() {
     const position = [this.state.lat, this.state.lng]
 
     const File = this.props.file;
 
-    let maxCountries = File.countries.map( country => country.totalCount).sort((x,y) => x>y )[File.countries.length -1];
+    const range1 = this.state.range1;
+    const range2 = this.state.range2;
+    
+
+    const validatedCountries = [];
+
+    File.countries.map(x => {
+
+      let local = x.sentencesMap;
+      let toReturn = null;
+
+      Object.keys(local).forEach( key => {
+        (parseInt(key) <= range2 && parseInt(key) >= range1) ? toReturn = local[key] : null
+      });
+
+      if(toReturn)
+        validatedCountries.push(x);   
+        
+    });
+
+    const validatedCities = []; 
+    
+    File.cities.map(x => {
+      let local = x.sentencesMap;
+      let toReturn = null;
+
+      Object.keys(local).forEach( key => {
+        (parseInt(key) <= range2 && parseInt(key) >= range1) ? toReturn = local[key] : null} );
+
+      if(toReturn)
+       validatedCities.push(x);
+      
+    });
+
+    let maxCountries = validatedCountries.map( country => country.totalCount).sort((x,y) => x>y )[File.countries.length -1];
     let maxCities = File.cities.map( city => city.totalCount).sort((x,y) => x>y )[File.cities.length -1]; 
     let minCities
   
@@ -36,7 +78,7 @@ export default class MapView extends Component {
         />
 
         {
-          File.countries.map(
+          validatedCountries.map(
             (country, i) => 
             <GeoJSON key={hash(world(country.name))} data={world(country.name)} style={{
                 fillColor: 'red',
@@ -49,7 +91,7 @@ export default class MapView extends Component {
           
         }
 
-        {File.cities.map( city => { 
+        {validatedCities.map( city => { 
           return <Marker position={[city.latitude, city.longitude]} icon={
             
             leaflet.icon({

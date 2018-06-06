@@ -83,11 +83,6 @@ export const getResolvedTask = (taskId) => {
         }).then(response => {
             console.log(response);
 
-            response.data.map(x => x.range = {
-                range1: 1,
-                range2: Number.MAX_SAFE_INTEGER,
-                })
-
             dispatch({
                 type: SET_RECEIVED_JSON,
                 payload: response.data

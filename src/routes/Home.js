@@ -11,7 +11,9 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { selectedFile: emptyFile };
+        this.state = { selectedFile: emptyFile, 
+                       range1: 1,
+                       range2: 3};
         console.log(this.state.selectedFile);
     }
 
@@ -39,7 +41,10 @@ class Home extends Component {
 
     setRange = (r1,r2,textName) =>
     {
-        this.props.setRange(r1,r2,textName);
+        console.log('SubmitingRANGE HOME ' + r1 + ' ' + r2);
+
+        this.setState({range1: r1});
+        this.setState({range2: r2});
     };
 
     render() {
@@ -47,10 +52,11 @@ class Home extends Component {
         return (
             <div>
                 <div className="block">
-                    <MapView file={this.state.selectedFile} />
+                    <MapView file={this.state.selectedFile} range1={this.state.range1} range2={this.state.range2}/>
                     <div>
                         <FileUpload onFileUpload={file => this.onFileUpload(file)} />
                         <FilesList
+                            sentencesCount = {this.state.selectedFile.sentencesCount}
                             files={this.props.files}
                             setRange = {(r1,r2,textName)=>this.setRange(r1,r2,textName)}
                             onItemClicked={selectedFile => this.onChooseFile(selectedFile)}

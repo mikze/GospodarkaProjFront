@@ -9,7 +9,7 @@ import {
 import CircularProgress from 'material-ui/CircularProgress';
 import RangeComponent from './RangeComponent'
 
-const FilesList = ({ files, onItemClicked, setRange }) => {
+const FilesList = ({ files, onItemClicked, setRange, sentencesCount }) => {
 
   return (
     <div>
@@ -23,7 +23,7 @@ const FilesList = ({ files, onItemClicked, setRange }) => {
                   <p style={{fontWeight: "bold", marginBottom: 0, fontSize: 14}}>
                     {file.filename}
                   </p>
-                  <RangeComponent textName = {file.filename} setRange = {(r1,r2,textName) => setRange(r1,r2,textName)}/>
+                  <RangeComponent sentencesCount={sentencesCount} textName = {file.filename} setRange = {(r1,r2,textName) => setRange(r1,r2,textName)}/>
                 </div>
               </TableHeaderColumn>
             </TableRow>
