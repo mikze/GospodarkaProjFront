@@ -22,28 +22,15 @@ const Country = () => (
             <label>
                 Name: <Text field="name" defaultValue='' />
             </label>
+        </div>
+        <div>
             <label>
-                Center Latitude: <Text type='number' field="centerLatitude" defaultValue={0} />
-            </label>
-            <label>
-                Center Longitude: <Text type='number' field="centerLongitude" defaultValue={0} />
-            </label>
-            <label>
-                North-East Latitude: <Text type='number' field="northEastLatitude" defaultValue={0} />
-            </label>
-        </div><div>
-            <label>
-                North-East Longitude: <Text type='number' field="northEastLongitude" defaultValue={0} />
-            </label>
-            <label>
-                South-West Latitude: <Text type='number' field="southWestLatitude" defaultValue={0} />
-            </label>
-            <label>
-                South-West Longitude: <Text type='number' field="southWestLongitude" defaultValue={0} />
+                Area: <Text field="coordinates" defaultValue='' placeholder='[1,2],[2,3],[3,1]' />
             </label>
         </div>
     </div>
 )
+
 
 class CreatePrivateDictionary extends Component {
 
@@ -63,6 +50,16 @@ class CreatePrivateDictionary extends Component {
         localStorage.setItem("user_details", "test@gmail.com|Jan|Nowak")
     }
 
+    prepareDictionary() {
+        let newDictionary = this.state.dictionary;
+        newDictionary.countries.forEach(country => {
+            country.type = "Polygon"
+            let newCoordinates = JSON.parse("[[" + country.coordinates + "]]");
+            country.coordinates = newCoordinates;
+        });
+        this.setState({ dictionary: newDictionary })
+    }
+
     render() {
         return (
             <div>
@@ -70,7 +67,9 @@ class CreatePrivateDictionary extends Component {
 
                 <Form onSubmit={submittedValues => {
                     this.setState({ dictionary: submittedValues });
+                    this.prepareDictionary();
                     this.createDictionary();
+                    console.log(this.state.dictionary);
                 }}>
                     {formApi => (
                         <div style={{ flex: 1 }}>
@@ -94,7 +93,7 @@ class CreatePrivateDictionary extends Component {
                                         <button
                                             onClick={() => formApi.removeValue('countries', i)}
                                             type="button"
-                                        >Remove</button>
+                                        >Remove Country</button>
                                     </div>
                                 ))}
 

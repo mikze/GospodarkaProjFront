@@ -1,5 +1,4 @@
-import { SET_RECEIVED_JSON, SET_RANGE } from '../actions/types'
-import _ from 'lodash';
+import { SET_RECEIVED_JSON } from '../actions/types'
 
 export const FileResult = (state = { receivedJSON: 'nothing' }, action) => {
     switch (action.type) {
