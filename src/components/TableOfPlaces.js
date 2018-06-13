@@ -2,15 +2,12 @@ import React from 'react';
 import '../style.css'
 
 
-const TableOfPlaces = ({ file }) => {
-
-  const { filename, cities, countries } = file;
+const TableOfPlaces = ({ cities, countries }) => {
 
   return (
     <div className='bigSize'>
-      File Name: {filename} <br />
-      Cites: {cities.map(city => `${city.name}, `)} <br />
-      Countries: {countries.map(country => `${country.name} x${country.totalCount}, `)} <br />
+      Cites: {cities.map(city => `${city.name} x${city.count} `)} <br />
+      Countries: {countries.map(country => `${country.name} x${country.count}, `)} <br />
     </div>
   )
 };

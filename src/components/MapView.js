@@ -4,6 +4,7 @@ import leaflet from 'leaflet'
 import '../style.css'
 import world from '../assets/countries';
 import hash from 'object-hash';
+import TableOfPlaces from './TableOfPlaces';
 
 export default class MapView extends Component {
   
@@ -41,13 +42,21 @@ export default class MapView extends Component {
 
       let local = x.sentencesMap;
       let toReturn = null;
+      x.count = 0;
 
       Object.keys(local).forEach( key => {
-        (parseInt(key) <= range2 && parseInt(key) >= range1) ? toReturn = local[key] : null
+        if(parseInt(key) <= range2 && parseInt(key) >= range1)
+        {toReturn = local[key];
+          if(local[key] > x.count)
+          {
+            x.count = local[key];
+          }
+        }
       });
 
       if(toReturn)
-        validatedCountries.push(x);   
+        validatedCountries.push(x);  
+      
         
     });
 
@@ -56,9 +65,17 @@ export default class MapView extends Component {
     File.cities.map(x => {
       let local = x.sentencesMap;
       let toReturn = null;
+      x.count = 0;
 
       Object.keys(local).forEach( key => {
-        (parseInt(key) <= range2 && parseInt(key) >= range1) ? toReturn = local[key] : null} );
+        if(parseInt(key) <= range2 && parseInt(key) >= range1)
+        {toReturn = local[key];
+          if(local[key] > x.count)
+          {
+            x.count = local[key];
+          }
+        }
+      });
 
       if(toReturn)
        validatedCities.push(x);
@@ -66,7 +83,7 @@ export default class MapView extends Component {
     });
 
     let maxCountries = validatedCountries.map( country => country.totalCount).sort((x,y) => x>y )[File.countries.length -1];
-    let maxCities = File.cities.map( city => city.totalCount).sort((x,y) => x>y )[File.cities.length -1]; 
+    let maxCities = validatedCities.map( city => city.totalCount).sort((x,y) => x>y )[File.cities.length -1]; 
     let minCities
   
     return (
@@ -109,6 +126,10 @@ export default class MapView extends Component {
           </Popup>
         </Marker>})}
       </Map>
+      <TableOfPlaces
+                    cities={validatedCities}
+                    countries={validatedCountries}
+                />
       </div>
     )
   }

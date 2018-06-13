@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MapView from '../components/MapView';
-import TableOfPlaces from '../components/TableOfPlaces';
 import ListOfTasks from '../components/ListOfTasks';
 import FilesList from '../components/FilesList';
 import FileUpload from '../components/FileUpload';
@@ -65,9 +64,7 @@ class Home extends Component {
                 <ListOfTasks tasks = {this.props.TaskId} removeTask={taskId => this.removeTask(taskId)} getResolvedTask = {taskId => this.getResolvedTask(taskId)} />
 
                 </div>
-                <TableOfPlaces
-                    file={this.state.selectedFile}
-                />
+                
             </div>
         );
     }

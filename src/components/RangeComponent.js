@@ -11,8 +11,8 @@ export default class RangeComponent extends Component {
       super(props)
   
       this.state = {
-          range1: 1,
-          range2: Number.MAX_SAFE_INTEGER,
+          range1: '-',
+          range2: '-',
           error: null
       }
     }
@@ -67,7 +67,7 @@ export default class RangeComponent extends Component {
        
        if(this.validate())
        {
-           console.log('SubmitingRANGE');
+           console.log('SubmitingRANGE rangeComponent ' + this.state.range1 + ' ' + this.state.range2);
            this.props.setRange(this.state.range1, this.state.range2 , this.props.textName);
         }
        else
@@ -107,7 +107,8 @@ export default class RangeComponent extends Component {
         value={this.state.range2}
             onChange = {(x,y) => this.setRange2(x,y)}
         />
-        <FlatButton label="Load" onClick = { this.submitRange } disabled={this.state.error}/>
+        
+        <FlatButton label={`Load from ${this.state.range1} to ${this.state.range2}`} onClick = { this.submitRange } disabled={this.state.error}/>
 
         <Dialog
             title="Dialog With Actions"
