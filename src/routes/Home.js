@@ -6,6 +6,8 @@ import FilesList from '../components/FilesList';
 import FileUpload from '../components/FileUpload';
 import { setTaskId, removeTask, getResolvedTask, setRange, fetchTaskDictionaries } from '../actions/actions';
 import { ClipLoader } from 'react-spinners';
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
 
 
 class Home extends Component {
@@ -55,10 +57,11 @@ class Home extends Component {
         this.setState({ range2: r2 });
     };
 
-    handleOptionChange = (changeEvent) => {
+    handleDictionaryChange = (dictionary) => {
+        console.log(dictionary);
         this.setState({
-            selectedOption: changeEvent.target.value,
-            isPrivate: this.contains(this.props.dictionaries.privateDictionaries, changeEvent.target.value)
+            selectedOption: dictionary.value,
+            isPrivate: this.contains(this.props.dictionaries.privateDictionaries, dictionary.value)
         });
         console.log(this.state.selectedOption);
     };
@@ -80,52 +83,27 @@ class Home extends Component {
                     <MapView file={this.state.selectedFile} range1={this.state.range1} range2={this.state.range2} />
                     <div>
                         <FileUpload onFileUpload={file => this.onFileUpload(file)} />
+                        <Dropdown options={[
+                            {value: "Global", label: "Global"},
+                            {
+                                type: 'group',
+                                name: 'Publiczne',
+                                items: this.props.dictionaries.publicDictionaries.map(function (value) {
+                                    return {value: value, label: value}
+                                })
+                            }, {
+                                type: 'group',
+                                name: 'Prywatne',
+                                items: this.props.dictionaries.privateDictionaries.map(function (value) {
+                                    return {value: value, label: value}
+                                })
+                            }]} value={"Global"} onChange={this.handleDictionaryChange} placeholder="Select dictionary"/>
                         <FilesList
                             sentencesCount={this.state.selectedFile.sentencesCount}
                             files={this.props.files}
                             setRange={(r1, r2, textName) => this.setRange(r1, r2, textName)}
                             onItemClicked={selectedFile => this.onChooseFile(selectedFile)}
                         />
-                        <div>
-                            <label>
-                                <input type='radio' checked={this.state.selectedOption === 'Global'} onChange={this.handleOptionChange}
-                                    value='Global' />
-                                Global
-                            </label>
-                            <div>
-                                Public dictionaries:
-
-                            {this.props.dictionaries.publicDictionaries.map(function (value, index) {
-                                    return <div>
-                                        <label>
-                                            <input
-                                                type='radio'
-                                                checked={this.state.selectedOption === value}
-                                                onChange={this.handleOptionChange}
-                                                value={value} />
-                                            {value}
-                                        </label>
-                                    </div>;
-                                }, this)}
-                            </div>
-
-                            <div>
-                                Private dictionaries:
-
-                            {this.props.dictionaries.privateDictionaries.map(function (value, index) {
-                                    return <div>
-                                        <label>
-                                            <input
-                                                type='radio'
-                                                checked={this.state.selectedOption === value}
-                                                onChange={this.handleOptionChange}
-                                                value={value} />
-                                            {value}
-                                        </label>
-                                    </div>;
-                                }, this)}
-                            </div>
-                        </div>
                     </div>
                     <ListOfTasks tasks={this.props.TaskId} removeTask={taskId => this.removeTask(taskId)} getResolvedTask={taskId => this.getResolvedTask(taskId)} />
                 </div>
