@@ -3,8 +3,9 @@ import ReactTable from 'react-table';
 import { connect } from 'react-redux';
 import treeTableHOC from "react-table/lib/hoc/treeTable";
 import 'react-table/react-table.css';
-import { demoDictionaries } from '../assets/demoDictionaries';
 import { fetchPublicDictionaries } from '../actions/actions';
+import CoordinatesList from '../components/CoordinatesList';
+import { ClipLoader } from 'react-spinners';
 
 const TreeTable = treeTableHOC(ReactTable);
 
@@ -28,9 +29,9 @@ class BrowsePublicDictionaries extends Component {
     };
 
     render() {
-        const { data, currentPage } = this.state;
-
-        return (
+        const { currentPage } = this.state;
+        const data = this.props.dictionaries
+        return data !== null ?
             <div className='container'>
                 <h1 style={{ textAlign: 'center' }}>Public Dictionary: {data[currentPage].name}</h1>
 
@@ -55,29 +56,43 @@ class BrowsePublicDictionaries extends Component {
                 <h3>Countries:</h3>
                 <TreeTable
                     data={data[currentPage].countries}
-                    pivotBy={['name']}
+                    pivotBy={[]}
                     columns={[{
                         Header: `Countries`,
                         accessor: 'name',
-                    }, {
-                        Header: `Center Latitude`,
-                        accessor: 'centerLatitude',
-                    }, {
-                        Header: `Center Longitude`,
-                        accessor: 'centerLongitude',
-                    }, {
-                        Header: `North-East Latitude`,
-                        accessor: 'northEastLatitude',
-                    }, {
-                        Header: `North-East Longitude`,
-                        accessor: 'northEastLongitude',
-                    }, {
-                        Header: `South-West Latitude`,
-                        accessor: 'southWestLatitude',
-                    }, {
-                        Header: `South-West Longitude`,
-                        accessor: 'southWestLongitude',
-                    }]}
+                    }
+                    ]}
+                    SubComponent={row => {
+                        console.log(row.original);
+                        const country = row.original;
+                        console.log(country);
+                        return <div style={{ padding: 12, margin: 'aut auto auto 0' }}><table>
+                            <tbody>
+                                <tr>Positive opinions: {country.positiveOpinions}
+                                    <button
+                                        onClick={() => {
+                                            console.log(`lapka w gore dla ${country.name}`)
+                                            this.props.fetchPublicDictionaries();
+                                        }
+                                        }
+                                        type="button"
+                                        className="mb-4 mr-4 btn btn-success">Vote up</button>
+                                </tr>
+                                <tr>Negative opinions: {country.negativeOpinions}
+                                    <button
+                                        onClick={() => console.log(`lapka w dol dla ${country.name}`)}
+                                        type="button"
+                                        className="mb-4 mr-4 btn btn-success">Vote down</button>
+                                </tr>
+                                <tr>
+                                    {country.coordinates.map(function (value, index) {
+                                        return <td>Area nr: {index}<CoordinatesList coordinates={value} /></td>
+                                    })}
+                                </tr>
+                            </tbody>
+                        </table >
+                        </div>
+                    }}
                     pageSize={data[currentPage].countries.length}
                     showPagination={false}
                 />
@@ -92,13 +107,20 @@ class BrowsePublicDictionaries extends Component {
                     pageText='Dictionary'
                 />
             </div>
-        );
+            :
+            <div className="loading">
+                <ClipLoader
+                    size={300}
+                    color={'#028dd1'}
+                    loading={this.props.loading}
+                />
+            </div>;
     }
 }
 
-const mapStateToProps = ({ Dictionaries }) => {
+const mapStateToProps = ({ Dictionaries, Loading }) => {
     const dictionaries = Dictionaries.publicDictionaries;
-    return { dictionaries };
+    return { dictionaries, loading: Loading };
 };
 
 const ConnectedBrowsePublicDictionaries = connect(mapStateToProps, { fetchPublicDictionaries })(BrowsePublicDictionaries);

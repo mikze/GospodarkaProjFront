@@ -1,12 +1,13 @@
 import {
     SET_PUBLIC_DICTIONARIES,
-    SET_PRIVATE_DICTIONARIES
+    SET_PRIVATE_DICTIONARIES,
+    SET_TASK_DICTIONARIES
 } from '../actions/types'
-import { demoDictionaries } from '../assets/demoDictionaries'
 
 const INITIAL_STATE = {
-    publicDictionaries: demoDictionaries,
-    privateDictionaries: demoDictionaries
+    publicDictionaries: null,
+    privateDictionaries: null,
+    taskDictionaries: null
 };
 
 export const Dictionaries = (state = INITIAL_STATE, action) => {
@@ -32,6 +33,13 @@ export const Dictionaries = (state = INITIAL_STATE, action) => {
             return {
                 ...state
             }
+        case SET_TASK_DICTIONARIES:
+            console.log("payload", action.payload);
+            return {
+                ...state,
+                taskDictionaries: action.payload
+            }
+
         default:
             return state;
     }
