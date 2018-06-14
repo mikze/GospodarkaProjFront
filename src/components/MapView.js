@@ -17,18 +17,23 @@ export default class MapView extends Component {
     lng: -0.09,
     zoom: 2,
     range1: 1,
-    range2: 3
+    range2: 1,
+    file: props.file,
+    hash: 0
   }
   }
   
   componentWillReceiveProps(nextProps){
     this.setState({range1: nextProps.range1});
     this.setState({range2: nextProps.range2});
+    this.setState({file: nextProps.file});
+    this.setState({hash: nextProps.range1*nextProps.range2+Math.floor(Math.random() * 10000)});
+
 }
 
   render() {
     const position = [this.state.lat, this.state.lng]
-    const File = this.props.file;
+    const File = this.state.file;
     const range1 = this.state.range1;
     const range2 = this.state.range2;
     const validatedCountries = [];
@@ -75,20 +80,20 @@ export default class MapView extends Component {
     });
 
     let maxCountries = validatedCountries.length > 0 ? validatedCountries.map( country => country.TotalCount).reduce((x,y) => x+y ) : 1;
-    console.log(` MAX COUNTRIES ${maxCountries}`)
     let maxCities = validatedCities.map( city => city.MaxCount).sort((x,y) => x>y )[File.cities.length -1]; 
 
     const map = validatedCountries.map(
       (country, i) => 
       {
-        console.log(`tuautuaut ${country.name} ${country.MaxCount}  ${country.TotalCount}`);
-        return (<GeoJSON key={hash(world(country.name))} data={world(country.name)} style={{
+        console.log(validatedCountries);
+        let d = new Date();
+        return (<GeoJSON key={Math.floor(Math.random() * 10000)*d.getMilliseconds()} data={world(country.name)} style={{
           fillColor: 'red',
           weight: 1,
           opacity: 1,
           color: 'white',
           dashArray: '3',
-          fillOpacity: ((country.TotalCount)/maxCountries)+0.05
+          fillOpacity: ((country.TotalCount)/maxCountries)+0.07
       }} />)});
 
     const marker = validatedCities.map( city => { 

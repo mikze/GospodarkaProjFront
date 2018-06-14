@@ -16,8 +16,8 @@ class Home extends Component {
         super(props);
         this.state = {
             selectedFile: emptyFile,
-            range1: 1,
-            range2: 3,
+            range1: 0,
+            range2: 0,
             selectedOption: 'Global',
             isPrivate: false
         };
@@ -130,7 +130,6 @@ const emptyFile = {
 const mapStateToProps = ({ FileResult, TaskId, Dictionaries }) => {
     const files = FileResult.receivedJSON;
     const dictionaries = Dictionaries.taskDictionaries;
-    console.log('mapState', dictionaries);
     return { files, TaskId, dictionaries };
 };
 
