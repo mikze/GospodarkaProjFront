@@ -3,7 +3,7 @@ import ReactTable from 'react-table';
 import { connect } from 'react-redux';
 import treeTableHOC from "react-table/lib/hoc/treeTable";
 import 'react-table/react-table.css';
-import { fetchPublicDictionaries } from '../actions/actions';
+import { fetchPublicDictionaries, addOpinion } from '../actions/actions';
 import CoordinatesList from '../components/CoordinatesList';
 import { ClipLoader } from 'react-spinners';
 
@@ -49,6 +49,35 @@ class BrowsePublicDictionaries extends Component {
                         Header: 'Latitude',
                         accessor: 'latitude'
                     }]}
+                    SubComponent={row => {
+                        console.log(row.original);
+                        const city = row.original;
+                        console.log(city);
+                        return <div style={{ padding: 12, margin: 'aut auto auto 0' }}><table>
+                            <tbody>
+                                <tr>Positive opinions: {city.positiveOpinions}
+                                    <button
+                                        onClick={() => {
+                                            this.props.addOpinion('city', city.name, data[currentPage].name, true)
+                                            this.props.fetchPublicDictionaries();
+                                        }
+                                        }
+                                        type="button"
+                                        className="mb-4 mr-4 btn btn-success">Vote up</button>
+                                </tr>
+                                <tr>Negative opinions: {city.negativeOpinions}
+                                    <button
+                                        onClick={() => {
+                                            this.props.addOpinion('city', city.name, data[currentPage].name, false)
+                                            this.props.fetchPublicDictionaries()
+                                        }}
+                                        type="button"
+                                        className="mb-4 mr-4 btn btn-success">Vote down</button>
+                                </tr>
+                            </tbody>
+                        </table >
+                        </div>
+                    }}
                     pageSize={data[currentPage].cities.length}
                     showPagination={false}
                 />
@@ -71,8 +100,7 @@ class BrowsePublicDictionaries extends Component {
                                 <tr>Positive opinions: {country.positiveOpinions}
                                     <button
                                         onClick={() => {
-                                            console.log(`lapka w gore dla ${country.name}`)
-                                            this.props.fetchPublicDictionaries();
+                                            this.props.addOpinion('country', country.name, data[currentPage].name, true)
                                         }
                                         }
                                         type="button"
@@ -80,7 +108,9 @@ class BrowsePublicDictionaries extends Component {
                                 </tr>
                                 <tr>Negative opinions: {country.negativeOpinions}
                                     <button
-                                        onClick={() => console.log(`lapka w dol dla ${country.name}`)}
+                                        onClick={() => {
+                                            this.props.addOpinion('country', country.name, data[currentPage].name, false)
+                                        }}
                                         type="button"
                                         className="mb-4 mr-4 btn btn-success">Vote down</button>
                                 </tr>
@@ -123,5 +153,5 @@ const mapStateToProps = ({ Dictionaries, Loading }) => {
     return { dictionaries, loading: Loading };
 };
 
-const ConnectedBrowsePublicDictionaries = connect(mapStateToProps, { fetchPublicDictionaries })(BrowsePublicDictionaries);
+const ConnectedBrowsePublicDictionaries = connect(mapStateToProps, { fetchPublicDictionaries, addOpinion })(BrowsePublicDictionaries);
 export { ConnectedBrowsePublicDictionaries as BrowsePublicDictionaries };

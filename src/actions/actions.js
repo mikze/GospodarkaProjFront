@@ -140,7 +140,8 @@ export const fetchTaskDictionaries = () => {
         dispatch({ type: LOADING_START });
         axios({
             method: 'GET',
-            url: `http://kacperkluka.me//task/dictionaries`
+            url: `http://kacperkluka.me/task/dictionaries`,
+            headers: { user_details: "test@gmail.com|Jan|Nowak" }
         }).then(response => {
             console.log('response', response.data);
             dispatch({
@@ -154,3 +155,28 @@ export const fetchTaskDictionaries = () => {
         });
     }
 };
+
+export const addOpinion = (placeType, placeName, dictionaryName, positive) => {
+    console.log('placeType + placeName + dictionaryName + positive', `${placeType} ${placeName} ${dictionaryName} ${positive}`)
+    return (dispatch) => {
+        axios({
+            method: 'POST',
+            url: `http://kacperkluka.me/opinion/add`,
+            data: {
+                userEmail: 'text@gmail.com',
+                placeType,
+                placeName,
+                dictionaryName,
+                positive
+            }
+        }).then().catch((error) => {
+            if (error.response) {
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
+    }
+}
