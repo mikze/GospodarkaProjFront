@@ -6,8 +6,8 @@ const TableOfPlaces = ({ cities, countries }) => {
 
   return (
     <div className='bigSize'>
-      Cites: {cities.map(city => `${city.name} x${city.count} `)} <br />
-      Countries: {countries.map(country => `${country.name} x${country.count}, `)} <br />
+      Cites: {cities.map(city => `${city.name} x${city.TotalCount} `)} <br />
+      Countries: {countries.map(country => `${country.name} x${country.TotalCount}, `)} <br />
     </div>
   )
 };
